@@ -468,17 +468,7 @@ class Stc3xI2cCmdSelfTest(Stc3xI2cCmdBase):
 
     The sensor will run an on-chip self-test. A successful self-test will
     return zero. The 16-bit result of a sensor self-test is a combination of
-    possible error states, encoded as bits (starting with lsb): Bits \| Error
-    State
-
-    -------------------------------
-    0-1: | Memory error
-    2  : | VDD out of range
-    3-8: | Measurement value error
-    -------------------------------
-
-    In case of a successful self-test the sensor returns 0x0000 with correct
-    CRC.
+    possible error states, encoded as bits (starting with lsb).
     """
 
     def __init__(self):
@@ -511,7 +501,6 @@ class Stc3xI2cCmdSelfTest(Stc3xI2cCmdBase):
 
         # convert raw received data into proper data types
         self_test_output = int(unpack(">H", checked_data[0:2])[0])  # uint16
-        print("SelfTest {}".format(self_test_output))
         return self_test_output
 
 

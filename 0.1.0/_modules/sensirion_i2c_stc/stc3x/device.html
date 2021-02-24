@@ -1,0 +1,473 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sensirion_i2c_stc.stc3x.device &mdash; sensirion-i2c-stc 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensirion-i2c-stc
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensirion-i2c-stc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensirion_i2c_stc.stc3x.device</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensirion_i2c_stc.stc3x.device</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># (c) Copyright 2021 Sensirion AG, Switzerland</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">sensirion_i2c_driver</span> <span class="kn">import</span> <span class="n">I2cDevice</span>
+
+<span class="kn">from</span> <span class="nn">.commands</span> <span class="kn">import</span> <span class="n">Stc3xI2cCmdPrepareProductIdentifier</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdReadProductIdentifier</span><span class="p">,</span> <span class="n">Stc3xI2cCmdSetBinaryGas</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdSetRelativeHumidity</span><span class="p">,</span> <span class="n">Stc3xI2cCmdSetTemperature</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdSetPressure</span><span class="p">,</span> <span class="n">Stc3xI2cCmdMeasureGasConcentration</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdForcedRecalibration</span><span class="p">,</span> <span class="n">Stc3xI2cCmdEnableAutomaticSelfCalibration</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdDisableAutomaticSelfCalibration</span><span class="p">,</span> <span class="n">Stc3xI2cCmdPrepareReadState</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdGetSensorState</span><span class="p">,</span> <span class="n">Stc3xI2cCmdSetSensorState</span><span class="p">,</span> \
+    <span class="n">Stc3xI2cCmdApplyState</span><span class="p">,</span> <span class="n">Stc3xI2cCmdSelfTest</span><span class="p">,</span> <span class="n">Stc3xI2cCmdEnterSleepMode</span>
+
+
+<div class="viewcode-block" id="Stc3xI2cDevice"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cDevice</span><span class="p">(</span><span class="n">I2cDevice</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    STC3x I²C device class to allow executing I²C commands.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">slave_address</span><span class="o">=</span><span class="mh">0x29</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new STC3x I²C device.</span>
+
+<span class="sd">        :param ~sensirion_i2c_driver.connection.I2cConnection connection:</span>
+<span class="sd">            The I²C connection to use for communication.</span>
+<span class="sd">        :param byte slave_address:</span>
+<span class="sd">            The I²C slave address, defaults to 0x29.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cDevice</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">connection</span><span class="p">,</span> <span class="n">slave_address</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.read_product_identifier"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.read_product_identifier">[docs]</a>    <span class="k">def</span> <span class="nf">read_product_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read the product identifier and sensor serial number.</span>
+
+<span class="sd">        :return: The product number and serial number.</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdPrepareProductIdentifier</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdReadProductIdentifier</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.set_bianry_gas"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_bianry_gas">[docs]</a>    <span class="k">def</span> <span class="nf">set_bianry_gas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary_gas</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set Binary Gas</span>
+
+<span class="sd">        The STC3x measures the concentration of binary gas mixtures. It is</span>
+<span class="sd">        important to note that the STC3x is not selective for gases, and it</span>
+<span class="sd">        assumes that the binary gas is set correctly. The sensor can only give</span>
+<span class="sd">        a correct concentration value when only the gases set with this command</span>
+<span class="sd">        are present. When the system is reset, or wakes up from sleep mode, the</span>
+<span class="sd">        sensor goes back to default mode, in which no binary gas is selected.</span>
+<span class="sd">        This means that the binary gas must be reconfigured. When no binary gas</span>
+<span class="sd">        is selected (default mode) the concentration measurement will return</span>
+<span class="sd">        undefined results. This allows to detect unexpected sensor interruption</span>
+<span class="sd">        (e.g. due to temporary power loss) and consequently reset the binary</span>
+<span class="sd">        gas to the appropriate mixture.</span>
+
+<span class="sd">        :param ~sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas binary_gas:</span>
+<span class="sd">            See section 3.3.2 in the corresponding datasheet for a list of</span>
+<span class="sd">            available binary gases.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetBinaryGas</span><span class="p">(</span><span class="n">binary_gas</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.set_relative_humidity"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_relative_humidity">[docs]</a>    <span class="k">def</span> <span class="nf">set_relative_humidity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relative_humidity_percent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set Relative Humidity</span>
+
+<span class="sd">        As mentioned in section 5.1 of the datasheet, the measurement principle</span>
+<span class="sd">        of the concentration measurement is dependent on the humidity of the</span>
+<span class="sd">        gas. With the set relative humidity command, the sensor uses internal</span>
+<span class="sd">        algorithms to compensate the concentration results. When no value is</span>
+<span class="sd">        written to the sensor after a soft reset, wake-up or power-up, a</span>
+<span class="sd">        relative humidity of 0% is assumed. The value written to the sensor is</span>
+<span class="sd">        used until a new value is written to the sensor</span>
+
+<span class="sd">        :param float relative_humidity_percent: Relative humidity conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="n">Stc3xI2cCmdSetRelativeHumidity</span><span class="p">(</span><span class="n">relative_humidity_percent</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.set_temperature"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_temperature">[docs]</a>    <span class="k">def</span> <span class="nf">set_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temperature_degree_celsius</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set Temperature</span>
+
+<span class="sd">        The concentration measurement requires a compensation of temperature.</span>
+<span class="sd">        Per default, the sensor uses the internal temperature sensor to</span>
+<span class="sd">        compensate the concentration results. However, when using the SHTxx,</span>
+<span class="sd">        it is recommended to also use its temperature value, because it is more</span>
+<span class="sd">        accurate. When no value is written to the sensor after a soft reset,</span>
+<span class="sd">        wake-up or power-up, the internal temperature signal is used. The value</span>
+<span class="sd">        written to the sensor is used until a new value is written to the</span>
+<span class="sd">        sensor.</span>
+
+<span class="sd">        :param float temperature_degree_celsius: Temperature conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="n">Stc3xI2cCmdSetTemperature</span><span class="p">(</span><span class="n">temperature_degree_celsius</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.set_pressure"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_pressure">[docs]</a>    <span class="k">def</span> <span class="nf">set_pressure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">absolute_pressure</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set Pressure</span>
+
+<span class="sd">        A pressure value can be written into the sensor, for density</span>
+<span class="sd">        compensation of the gas concentration measurement. It is recommended to</span>
+<span class="sd">        set the pressure level, if it differs significantly from 1013mbar.</span>
+<span class="sd">        Pressure compensation is valid from 600mbar to 1200mbar. When no value</span>
+<span class="sd">        is written to the sensor after a soft reset, wake-up or power-up, a</span>
+<span class="sd">        pressure of 1013mbar is assumed. The value written is used until a new</span>
+<span class="sd">        value is written to the sensor.</span>
+
+<span class="sd">        :param int absolute_pressure: Ambient pressure condition in mbar</span>
+<span class="sd">            (milli-bars)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetPressure</span><span class="p">(</span><span class="n">absolute_pressure</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.measure_gas_concentration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.measure_gas_concentration">[docs]</a>    <span class="k">def</span> <span class="nf">measure_gas_concentration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Measure Gas Concentration</span>
+
+<span class="sd">        The measurement of gas concentration is done in one measurement in a</span>
+<span class="sd">        single shot, and takes less than 66ms. When measurement data is</span>
+<span class="sd">        available, it can be read out by sending an I2C read header and reading</span>
+<span class="sd">        out the data from the sensor. If no measurement data is available yet,</span>
+<span class="sd">        the sensor will respond with a NACK on the I2C read header. In case the</span>
+<span class="sd">        ‘Set temperature command’ has been used prior to the measurement</span>
+<span class="sd">        command, the temperature value given out by the STC3x will be that one</span>
+<span class="sd">        of the ‘Set temperature command’. When the ‘Set temperature command’</span>
+<span class="sd">        has not been used, the internal temperature value can be read out.</span>
+<span class="sd">        During product development it is recommended to compare the internal</span>
+<span class="sd">        temperature value of the STC3x and the temperature value of the SHTxx,</span>
+<span class="sd">        to check whether both sensors are properly thermally coupled. The</span>
+<span class="sd">        values must be within 0.7°C.</span>
+
+<span class="sd">        .. note:: The Gas concentration is a 16-bit unsigned integer. The</span>
+<span class="sd">                  temperature and byte 7 and 8 don’t need to be read out. The</span>
+<span class="sd">                  read sequence can be aborted after any byte by a NACK and a</span>
+<span class="sd">                  STOP condition. The measurement command should not be</span>
+<span class="sd">                  triggered more often than once a second.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">            - gas_concentration (:py:class:sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration)</span>
+<span class="sd">              Gas concentration response object</span>
+<span class="sd">            - temperature (:py:class:sensirion_i2c_stc.stc3x.reasponse_types.Stc3xTemperature)</span>
+<span class="sd">              Temperature response object.</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdMeasureGasConcentration</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.perform_forced_recalibration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.perform_forced_recalibration">[docs]</a>    <span class="k">def</span> <span class="nf">perform_forced_recalibration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_concentration</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forced Recalibration</span>
+
+<span class="sd">        Forced recalibration (FRC) is used to improve the sensor output with a</span>
+<span class="sd">        known reference value. See the Field Calibration Guide for more</span>
+<span class="sd">        details. If no argument is given, the sensor will assume a default</span>
+<span class="sd">        value of 0 vol%. This command will trigger a concentration measurement</span>
+<span class="sd">        as described in 3.3.6 of the datasheet and therefore it will take the</span>
+<span class="sd">        same measurement time.</span>
+
+<span class="sd">        :param int target_concentration: Target concentration in vol%.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+            <span class="n">Stc3xI2cCmdForcedRecalibration</span><span class="p">(</span><span class="n">target_concentration</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.enable_automatic_self_calibration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.enable_automatic_self_calibration">[docs]</a>    <span class="k">def</span> <span class="nf">enable_automatic_self_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enable Automatic Self Calibration</span>
+
+<span class="sd">        Enable the automatic self-calibration (ASC). The sensor can run in</span>
+<span class="sd">        automatic self-calibration mode. This mode will enhance the accuracy</span>
+<span class="sd">        for applications where the target gas is not present for the majority</span>
+<span class="sd">        of the time. See the Field Calibration Guide for more details. This</span>
+<span class="sd">        feature can be enabled or disabled by using the commands as shown</span>
+<span class="sd">        below. The automatic self-calibration is optimized for a gas</span>
+<span class="sd">        concentration measurement interval of 1s. Substantially different</span>
+<span class="sd">        measurement intervals may decrease the self-calibration performance.</span>
+<span class="sd">        The default state is disabled. Automatic self-calibration in</span>
+<span class="sd">        combination with sleep mode requires a specific sequence of steps.</span>
+<span class="sd">        See section 3.3.9 in the datasheet for more detailed instructions</span>
+
+<span class="sd">        .. note:: The sensor will apply automatic self-calibration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdEnableAutomaticSelfCalibration</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.disable_automatic_self_calibration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.disable_automatic_self_calibration">[docs]</a>    <span class="k">def</span> <span class="nf">disable_automatic_self_calibration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disable Automatic Self Calibration</span>
+
+<span class="sd">        Disable the automatic self-calibration (ASC). The sensor can run in</span>
+<span class="sd">        automatic self-calibration mode. This mode will enhance the accuracy</span>
+<span class="sd">        for applications where the target gas is not present for the majority</span>
+<span class="sd">        of the time. See the Field Calibration Guide for more details. This</span>
+<span class="sd">        feature can be enabled or disabled by using the commands as shown</span>
+<span class="sd">        below. The default state is disabled.</span>
+
+<span class="sd">        .. note:: The sensor will not apply automatic self-calibration. This is</span>
+<span class="sd">                  the default state of the sensor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdDisableAutomaticSelfCalibration</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.read_state"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.read_state">[docs]</a>    <span class="k">def</span> <span class="nf">read_state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read out the sensor state.</span>
+
+<span class="sd">        .. note:: See section 3.3.9 of the datasheet for detailed instructions.</span>
+
+<span class="sd">        :return: Current sensor state</span>
+<span class="sd">        :rtype: list(int)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdPrepareReadState</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdGetSensorState</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.apply_state"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.apply_state">[docs]</a>    <span class="k">def</span> <span class="nf">apply_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write the sensor state as read out earlier.</span>
+
+<span class="sd">        .. note:: See section 3.3.9 of the datasheet for detailed instructions.</span>
+
+<span class="sd">        :param list(int) state: Previously sensor state to set and apply.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetSensorState</span><span class="p">(</span><span class="n">state</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdApplyState</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.perform_self_test"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.perform_self_test">[docs]</a>    <span class="k">def</span> <span class="nf">perform_self_test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Self Test</span>
+
+<span class="sd">        The sensor will run an on-chip self-test. A successful self-test will</span>
+<span class="sd">        return zero. The 16-bit result of a sensor self-test is a combination</span>
+<span class="sd">        of possible error states, encoded as bits (starting with lsb).</span>
+
+<span class="sd">        :return: 0 means no malfunction detected</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdSelfTest</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cDevice.enable_sleep_mode"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.enable_sleep_mode">[docs]</a>    <span class="k">def</span> <span class="nf">enable_sleep_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enter Sleep Mode</span>
+
+<span class="sd">        Put sensor into sleep mode. In sleep mode the sensor uses the minimum</span>
+<span class="sd">        amount of current. The mode can only be entered from idle mode, i.e.</span>
+<span class="sd">        when the sensor is not measuring. This mode is particularly useful for</span>
+<span class="sd">        battery operated devices. To minimize the current in this mode, the</span>
+<span class="sd">        complexity of the sleep mode circuit has been reduced as much as</span>
+<span class="sd">        possible, which is mainly reflected by the way the sensor exits the</span>
+<span class="sd">        sleep mode. The sleep command can be sent after the result have been</span>
+<span class="sd">        read out and the sensor is in idle mode. The sensor exits the sleep</span>
+<span class="sd">        mode and enters the idle mode when it receives the valid I2C address</span>
+<span class="sd">        and a write bit (‘0’). Note that the I2C address is not acknowledged.</span>
+<span class="sd">        It is possible to poll the sensor to see whether the sensor has</span>
+<span class="sd">        received the address and has woken up. This takes maximum 12ms.</span>
+
+<span class="sd">        .. note:: Only available in idle mode</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">Stc3xI2cCmdEnterSleepMode</span><span class="p">())</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021 Sensirion AG, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 0.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="device.html">0.1.0</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../../../../master/index.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,1604 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Documentation &mdash; sensirion-i2c-stc 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> sensirion-i2c-stc
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#stc3x">STC3x</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-sensirion_i2c_stc.stc3x.device">STC3xI2cDevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sensirion_i2c_stc.stc3x.commands">STC3xI2cCommand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sensirion_i2c_stc.stc3x.data_types">Data Types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sensirion_i2c_stc.stc3x.response_types">Response Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sensirion-i2c-stc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-documentation">
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="stc3x">
+<h2>STC3x<a class="headerlink" href="#stc3x" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-sensirion_i2c_stc.stc3x.device">
+<span id="stc3xi2cdevice"></span><h3>STC3xI2cDevice<a class="headerlink" href="#module-sensirion_i2c_stc.stc3x.device" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.device.</code><code class="descname">Stc3xI2cDevice</code><span class="sig-paren">(</span><em>connection</em>, <em>slave_address=41</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>STC3x I²C device class to allow executing I²C commands.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>connection</em>, <em>slave_address=41</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new STC3x I²C device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>connection</strong> (<a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.connection.I2cConnection" title="(in Sensirion I²C Python Driver v1.0.1)"><em>I2cConnection</em></a>) – The I²C connection to use for communication.</li>
+<li><strong>slave_address</strong> (<em>byte</em>) – The I²C slave address, defaults to 0x29.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.read_product_identifier">
+<code class="descname">read_product_identifier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.read_product_identifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.read_product_identifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the product identifier and sensor serial number.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The product number and serial number.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_bianry_gas">
+<code class="descname">set_bianry_gas</code><span class="sig-paren">(</span><em>binary_gas</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.set_bianry_gas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_bianry_gas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Binary Gas</p>
+<p>The STC3x measures the concentration of binary gas mixtures. It is
+important to note that the STC3x is not selective for gases, and it
+assumes that the binary gas is set correctly. The sensor can only give
+a correct concentration value when only the gases set with this command
+are present. When the system is reset, or wakes up from sleep mode, the
+sensor goes back to default mode, in which no binary gas is selected.
+This means that the binary gas must be reconfigured. When no binary gas
+is selected (default mode) the concentration measurement will return
+undefined results. This allows to detect unexpected sensor interruption
+(e.g. due to temporary power loss) and consequently reset the binary
+gas to the appropriate mixture.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binary_gas</strong> (<a class="reference internal" href="#sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas" title="sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas"><em>Stc31BinaryGas</em></a>) – See section 3.3.2 in the corresponding datasheet for a list of
+available binary gases.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_relative_humidity">
+<code class="descname">set_relative_humidity</code><span class="sig-paren">(</span><em>relative_humidity_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.set_relative_humidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_relative_humidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Relative Humidity</p>
+<p>As mentioned in section 5.1 of the datasheet, the measurement principle
+of the concentration measurement is dependent on the humidity of the
+gas. With the set relative humidity command, the sensor uses internal
+algorithms to compensate the concentration results. When no value is
+written to the sensor after a soft reset, wake-up or power-up, a
+relative humidity of 0% is assumed. The value written to the sensor is
+used until a new value is written to the sensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>relative_humidity_percent</strong> (<em>float</em>) – Relative humidity conditions.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_temperature">
+<code class="descname">set_temperature</code><span class="sig-paren">(</span><em>temperature_degree_celsius</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.set_temperature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_temperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Temperature</p>
+<p>The concentration measurement requires a compensation of temperature.
+Per default, the sensor uses the internal temperature sensor to
+compensate the concentration results. However, when using the SHTxx,
+it is recommended to also use its temperature value, because it is more
+accurate. When no value is written to the sensor after a soft reset,
+wake-up or power-up, the internal temperature signal is used. The value
+written to the sensor is used until a new value is written to the
+sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>temperature_degree_celsius</strong> (<em>float</em>) – Temperature conditions.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_pressure">
+<code class="descname">set_pressure</code><span class="sig-paren">(</span><em>absolute_pressure</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.set_pressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.set_pressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Pressure</p>
+<p>A pressure value can be written into the sensor, for density
+compensation of the gas concentration measurement. It is recommended to
+set the pressure level, if it differs significantly from 1013mbar.
+Pressure compensation is valid from 600mbar to 1200mbar. When no value
+is written to the sensor after a soft reset, wake-up or power-up, a
+pressure of 1013mbar is assumed. The value written is used until a new
+value is written to the sensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>absolute_pressure</strong> (<em>int</em>) – Ambient pressure condition in mbar
+(milli-bars)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.measure_gas_concentration">
+<code class="descname">measure_gas_concentration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.measure_gas_concentration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.measure_gas_concentration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure Gas Concentration</p>
+<p>The measurement of gas concentration is done in one measurement in a
+single shot, and takes less than 66ms. When measurement data is
+available, it can be read out by sending an I2C read header and reading
+out the data from the sensor. If no measurement data is available yet,
+the sensor will respond with a NACK on the I2C read header. In case the
+‘Set temperature command’ has been used prior to the measurement
+command, the temperature value given out by the STC3x will be that one
+of the ‘Set temperature command’. When the ‘Set temperature command’
+has not been used, the internal temperature value can be read out.
+During product development it is recommended to compare the internal
+temperature value of the STC3x and the temperature value of the SHTxx,
+to check whether both sensors are properly thermally coupled. The
+values must be within 0.7°C.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Gas concentration is a 16-bit unsigned integer. The
+temperature and byte 7 and 8 don’t need to be read out. The
+read sequence can be aborted after any byte by a NACK and a
+STOP condition. The measurement command should not be
+triggered more often than once a second.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>gas_concentration (:py:class:sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration)
+Gas concentration response object</li>
+<li>temperature (:py:class:sensirion_i2c_stc.stc3x.reasponse_types.Stc3xTemperature)
+Temperature response object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.perform_forced_recalibration">
+<code class="descname">perform_forced_recalibration</code><span class="sig-paren">(</span><em>target_concentration</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.perform_forced_recalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.perform_forced_recalibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forced Recalibration</p>
+<p>Forced recalibration (FRC) is used to improve the sensor output with a
+known reference value. See the Field Calibration Guide for more
+details. If no argument is given, the sensor will assume a default
+value of 0 vol%. This command will trigger a concentration measurement
+as described in 3.3.6 of the datasheet and therefore it will take the
+same measurement time.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>target_concentration</strong> (<em>int</em>) – Target concentration in vol%.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.enable_automatic_self_calibration">
+<code class="descname">enable_automatic_self_calibration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.enable_automatic_self_calibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.enable_automatic_self_calibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable Automatic Self Calibration</p>
+<p>Enable the automatic self-calibration (ASC). The sensor can run in
+automatic self-calibration mode. This mode will enhance the accuracy
+for applications where the target gas is not present for the majority
+of the time. See the Field Calibration Guide for more details. This
+feature can be enabled or disabled by using the commands as shown
+below. The automatic self-calibration is optimized for a gas
+concentration measurement interval of 1s. Substantially different
+measurement intervals may decrease the self-calibration performance.
+The default state is disabled. Automatic self-calibration in
+combination with sleep mode requires a specific sequence of steps.
+See section 3.3.9 in the datasheet for more detailed instructions</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The sensor will apply automatic self-calibration</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.disable_automatic_self_calibration">
+<code class="descname">disable_automatic_self_calibration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.disable_automatic_self_calibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.disable_automatic_self_calibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable Automatic Self Calibration</p>
+<p>Disable the automatic self-calibration (ASC). The sensor can run in
+automatic self-calibration mode. This mode will enhance the accuracy
+for applications where the target gas is not present for the majority
+of the time. See the Field Calibration Guide for more details. This
+feature can be enabled or disabled by using the commands as shown
+below. The default state is disabled.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The sensor will not apply automatic self-calibration. This is
+the default state of the sensor.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.read_state">
+<code class="descname">read_state</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.read_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.read_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read out the sensor state.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See section 3.3.9 of the datasheet for detailed instructions.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Current sensor state</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(int)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.apply_state">
+<code class="descname">apply_state</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.apply_state"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.apply_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the sensor state as read out earlier.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See section 3.3.9 of the datasheet for detailed instructions.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Previously sensor state to set and apply.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.perform_self_test">
+<code class="descname">perform_self_test</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.perform_self_test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.perform_self_test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self Test</p>
+<p>The sensor will run an on-chip self-test. A successful self-test will
+return zero. The 16-bit result of a sensor self-test is a combination
+of possible error states, encoded as bits (starting with lsb).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">0 means no malfunction detected</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.enable_sleep_mode">
+<code class="descname">enable_sleep_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/device.html#Stc3xI2cDevice.enable_sleep_mode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.enable_sleep_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enter Sleep Mode</p>
+<p>Put sensor into sleep mode. In sleep mode the sensor uses the minimum
+amount of current. The mode can only be entered from idle mode, i.e.
+when the sensor is not measuring. This mode is particularly useful for
+battery operated devices. To minimize the current in this mode, the
+complexity of the sleep mode circuit has been reduced as much as
+possible, which is mainly reflected by the way the sensor exits the
+sleep mode. The sleep command can be sent after the result have been
+read out and the sensor is in idle mode. The sensor exits the sleep
+mode and enters the idle mode when it receives the valid I2C address
+and a write bit (‘0’). Note that the I2C address is not acknowledged.
+It is possible to poll the sensor to see whether the sensor has
+received the address and has woken up. This takes maximum 12ms.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only available in idle mode</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.connection">
+<code class="descname">connection</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the used I²C connection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The used I²C connection.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.connection.I2cConnection" title="(in Sensirion I²C Python Driver v1.0.1)">I2cConnection</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute an I²C command on this device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>command</strong> (<a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.command.I2cCommand" title="(in Sensirion I²C Python Driver v1.0.1)"><em>I2cCommand</em></a>) – The command to be executed.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The interpreted response of the executed command.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Depends on the executed command.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.slave_address">
+<code class="descname">slave_address</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.device.Stc3xI2cDevice.slave_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the I²C slave address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The I²C slave address.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">byte</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sensirion_i2c_stc.stc3x.commands">
+<span id="stc3xi2ccommand"></span><h3>STC3xI2cCommand<a class="headerlink" href="#module-sensirion_i2c_stc.stc3x.commands" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdBase</code><span class="sig-paren">(</span><em>command</em>, <em>tx_data</em>, <em>rx_length</em>, <em>read_delay</em>, <em>timeout</em>, <em>post_processing_time=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>STC3x I²C base command.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>command</em>, <em>tx_data</em>, <em>rx_length</em>, <em>read_delay</em>, <em>timeout</em>, <em>post_processing_time=0.0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdBase.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a new STC3x I²C command.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>command</strong> (<em>int/None</em>) – The command ID to be sent to the device. None means that no
+command will be sent, i.e. only <code class="docutils literal notranslate"><span class="pre">tx_data</span></code> (if not None) will
+be sent. No CRC is added to these bytes since the command ID
+usually already contains a CRC.</li>
+<li><strong>tx_data</strong> (<em>bytes-like/list/None</em>) – Bytes to be extended with CRCs and then sent to the I²C device.
+None means that no write header will be sent at all (if <code class="docutils literal notranslate"><span class="pre">command</span></code>
+is None too). An empty list means to send the write header (even if
+<code class="docutils literal notranslate"><span class="pre">command</span></code> is None), but without data following it.</li>
+<li><strong>rx_length</strong> (<em>int/None</em>) – Number of bytes to be read from the I²C device, including CRC
+bytes. None means that no read header is sent at all. Zero means
+to send the read header, but without reading any data.</li>
+<li><strong>read_delay</strong> (<em>float</em>) – Delay (in Seconds) to be inserted between the end of the write
+operation and the beginning of the read operation. This is needed
+if the device needs some time to prepare the RX data, e.g. if it
+has to perform a measurement. Set to 0.0 to indicate that no delay
+is needed, i.e. the device does not need any processing time.</li>
+<li><strong>timeout</strong> (<em>float</em>) – Timeout (in Seconds) to be used in case of clock stretching. If the
+device stretches the clock longer than this value, the transceive
+operation will be aborted with a timeout error. Set to 0.0 to
+indicate that the device will not stretch the clock for this
+command.</li>
+<li><strong>post_processing_time</strong> (<em>float</em>) – Maximum time in seconds the device needs for post processing of
+this command until it is ready to receive the next command. For
+example after a device reset command, the device might need some
+time until it is ready again. Usually this is 0.0s, i.e. no post
+processing is needed.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdSetBinaryGas</code><span class="sig-paren">(</span><em>binary_gas</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetBinaryGas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Binary Gas I²C Command</p>
+<p>The STC3x measures the concentration of binary gas mixtures. It is
+important to note that the STC3x is not selective for gases, and it assumes
+that the binary gas is set correctly. The sensor can only give a correct
+concentration value when only the gases set with this command are present.
+When the system is reset, or wakes up from sleep mode, the sensor goes back
+to default mode, in which no binary gas is selected. This means that the
+binary gas must be reconfigured. When no binary gas is selected (default
+mode) the concentration measurement will return undefined results. This
+allows to detect unexpected sensor interruption (e.g. due to temporary
+power loss) and consequently reset the binary gas to the appropriate
+mixture.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>binary_gas</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetBinaryGas.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>binary_gas</strong> (<em>int</em>) – See section 3.3.2 in the corresponding datasheet for a list of
+available binary gases. See <code class="xref py py-class docutils literal notranslate"><span class="pre">Stc31BinaryGas</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdSetRelativeHumidity</code><span class="sig-paren">(</span><em>relative_humidity_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetRelativeHumidity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Relative Humidity I²C Command</p>
+<p>As mentioned in section 5.1 of the datasheet, the measurement principle of
+the concentration measurement is dependent on the humidity of the gas. With
+the set relative humidity command, the sensor uses internal algorithms to
+compensate the concentration results. When no value is written to the
+sensor after a soft reset, wake-up or power-up, a relative humidity of 0%
+is assumed. The value written to the sensor is used until a new value is
+written to the sensor</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>relative_humidity_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetRelativeHumidity.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>relative_humidity_percent</strong> (<em>float</em>) – Relative humidity conditions.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdSetTemperature</code><span class="sig-paren">(</span><em>temperature_degree_celsius</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetTemperature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Temperature I²C Command</p>
+<p>The concentration measurement requires a compensation of temperature. Per
+default, the sensor uses the internal temperature sensor to compensate the
+concentration results. However, when using the SHTxx, it is recommended to
+also use its temperature value, because it is more accurate. When no value
+is written to the sensor after a soft reset, wake-up or power-up, the
+internal temperature signal is used. The value written to the sensor is
+used until a new value is written to the sensor.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>temperature_degree_celsius</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetTemperature.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>temperature_degree_celsius</strong> (<em>float</em>) – Temperature conditions.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdSetPressure</code><span class="sig-paren">(</span><em>absolue_pressure</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetPressure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Pressure I²C Command</p>
+<p>A pressure value can be written into the sensor, for density compensation
+of the gas concentration measurement. It is recommended to set the pressure
+level, if it differs significantly from 1013mbar. Pressure compensation is
+valid from 600mbar to 1200mbar. When no value is written to the sensor
+after a soft reset, wake-up or power-up, a pressure of 1013mbar is assumed.
+The value written is used until a new value is written to the sensor.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>absolue_pressure</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetPressure.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>absolue_pressure</strong> (<em>int</em>) – Ambient pressure in mbar (milli-bars)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdMeasureGasConcentration</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdMeasureGasConcentration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure Gas Concentration I²C Command</p>
+<p>The measurement of gas concentration is done in one measurement in a single
+shot, and takes less than 66ms. When measurement data is available, it can
+be read out by sending an I2C read header and reading out the data from the
+sensor. If no measurement data is available yet, the sensor will respond
+with a NACK on the I2C read header. In case the ‘Set temperature command’
+has been used prior to the measurement command, the temperature value given
+out by the STC3x will be that one of the ‘Set temperature command’. When
+the ‘Set temperature command’ has not been used, the internal temperature
+value can be read out. During product development it is recommended to
+compare the internal temperature value of the STC3x and the temperature
+value of the SHTxx, to check whether both sensors are properly thermally
+coupled. The values must be within 0.7°C.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The Gas concentration is a 16-bit unsigned integer. The
+temperature and byte 7 and 8 don’t need to be read out. The read
+sequence can be aborted after any byte by a NACK and a STOP
+condition. The measurement command should not be triggered more
+often than once a second.</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdMeasureGasConcentration.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdMeasureGasConcentration.interpret_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the interpreted data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>gas_concentration (:py:class:sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration)
+Gas concentration response object</li>
+<li>temperature (:py:class:sensirion_i2c_stc.stc3x.reasponse_types.Stc3xTemperature)
+Temperature response object.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdForcedRecalibration</code><span class="sig-paren">(</span><em>reference_concentration_vol_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdForcedRecalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Forced Recalibration I²C Command</p>
+<p>Forced recalibration (FRC) is used to improve the sensor output with a
+known reference value. See the Field Calibration Guide for more details. If
+no argument is given, the sensor will assume a default value of 0 vol%.
+This command will trigger a concentration measurement as described in 3.3.6
+of the datasheet and therefore it will take the same measurement time.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>reference_concentration_vol_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdForcedRecalibration.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>reference_concentration_vol_percent</strong> (<em>int</em>) – Reference concentration</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdEnableAutomaticSelfCalibration</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdEnableAutomaticSelfCalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enable Automatic Self Calibration I²C Command</p>
+<p>Enable the automatic self-calibration (ASC). The sensor can run in
+automatic self-calibration mode. This mode will enhance the accuracy for
+applications where the target gas is not present for the majority of the
+time. See the Field Calibration Guide for more details. This feature can be
+enabled or disabled by using the commands as shown below. The automatic
+self-calibration is optimized for a gas concentration measurement interval
+of 1s. Substantially different measurement intervals may decrease the
+self-calibration performance. The default state is disabled. Automatic
+self-calibration in combination with sleep mode requires a specific
+sequence of steps. See section 3.3.9 in the datasheet for more detailed
+instructions</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The sensor will apply automatic self-calibration</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdEnableAutomaticSelfCalibration.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdDisableAutomaticSelfCalibration</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdDisableAutomaticSelfCalibration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Disable Automatic Self Calibration I²C Command</p>
+<p>Disable the automatic self-calibration (ASC). The sensor can run in
+automatic self-calibration mode. This mode will enhance the accuracy for
+applications where the target gas is not present for the majority of the
+time. See the Field Calibration Guide for more details. This feature can be
+enabled or disabled by using the commands as shown below. The default state
+is disabled.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The sensor will not apply automatic self-calibration. This is the
+default state of the sensor.</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdDisableAutomaticSelfCalibration.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdPrepareReadState</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdPrepareReadState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare Read State I²C Command</p>
+<p>The sensor will prepare its current state to be read out.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See section 3.3.9 of the datasheet for detailed instructions.</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdPrepareReadState.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdGetSensorState</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdGetSensorState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Sensor State I²C Command</p>
+<p>Read out the sensor state.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdGetSensorState.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdGetSensorState.interpret_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the interpreted data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Current sensor state</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list(int)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdSetSensorState</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetSensorState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Sensor State I²C Command</p>
+<p>Write the sensor state as read out earlier.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>state</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSetSensorState.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>state</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Current sensor state</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdApplyState</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdApplyState"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply State I²C Command</p>
+<p>The sensor will apply the written state data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">See section 3.3.9 of the datasheet for detailed instructions.</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdApplyState.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdSelfTest</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSelfTest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Self Test I²C Command</p>
+<p>The sensor will run an on-chip self-test. A successful self-test will
+return zero. The 16-bit result of a sensor self-test is a combination of
+possible error states, encoded as bits (starting with lsb).</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSelfTest.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdSelfTest.interpret_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the interpreted data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Self test result. Error code or 0x0000 on success.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdEnterSleepMode</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdEnterSleepMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enter Sleep Mode I²C Command</p>
+<p>Put sensor into sleep mode. In sleep mode the sensor uses the minimum
+amount of current. The mode can only be entered from idle mode, i.e. when
+the sensor is not measuring. This mode is particularly useful for battery
+operated devices. To minimize the current in this mode, the complexity of
+the sleep mode circuit has been reduced as much as possible, which is
+mainly reflected by the way the sensor exits the sleep mode. The sleep
+command can be sent after the result have been read out and the sensor is
+in idle mode. The sensor exits the sleep mode and enters the idle mode when
+it receives the valid I2C address and a write bit (‘0’). Note that the I2C
+address is not acknowledged. It is possible to poll the sensor to see
+whether the sensor has received the address and has woken up. This takes
+maximum 12ms.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only available in idle mode</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdEnterSleepMode.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdPrepareProductIdentifier</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdPrepareProductIdentifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare Product Identifier I²C Command</p>
+<p>Prepare for reading the product identifier and sensor serial number.</p>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdPrepareProductIdentifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the data with all CRCs removed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The received bytes, or None if there is no data received.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bytes or None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.commands.</code><code class="descname">Stc3xI2cCmdReadProductIdentifier</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdReadProductIdentifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read Product Identifier I²C Command</p>
+<p>Read the product identifier and sensor serial number.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure to call ‘prepare product identifier’ immediately
+before.</p>
+</div>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdReadProductIdentifier.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier.interpret_response">
+<code class="descname">interpret_response</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/commands.html#Stc3xI2cCmdReadProductIdentifier.interpret_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier.interpret_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates the CRCs of the received data from the device and returns
+the interpreted data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> (<em>bytes</em>) – Received raw bytes from the read operation.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul class="simple">
+<li>product_number (int) -
+32-bit unique product and revision number. The number is listed
+below: STC31: 0x08010301</li>
+<li>serial_number (unsigned long long) 64-bit unique serial number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><a class="reference external" href="https://sensirion.github.io/python-i2c-driver/api.html#sensirion_i2c_driver.errors.I2cChecksumError" title="(in Sensirion I²C Python Driver v1.0.1)"><strong>I2cChecksumError</strong></a> – If a received CRC was wrong.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sensirion_i2c_stc.stc3x.data_types">
+<span id="data-types"></span><h3>Data Types<a class="headerlink" href="#module-sensirion_i2c_stc.stc3x.data_types" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.data_types.</code><code class="descname">Stc31BinaryGas</code><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc31BinaryGas"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas" title="Permalink to this definition">¶</a></dt>
+<dd><p>An enum containing all available binary gas configuratinos for the STC31
+Sensor.</p>
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InNo2Range100">
+<code class="descname">Co2InNo2Range100</code><em class="property"> = 0</em><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InNo2Range100" title="Permalink to this definition">¶</a></dt>
+<dd><p>CO2 in N2 Range: 0 to 100 vol%</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InAirRange100">
+<code class="descname">Co2InAirRange100</code><em class="property"> = 1</em><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InAirRange100" title="Permalink to this definition">¶</a></dt>
+<dd><p>CO2 in air Range: 0 to 100 vol%</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InNo2Range25">
+<code class="descname">Co2InNo2Range25</code><em class="property"> = 2</em><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InNo2Range25" title="Permalink to this definition">¶</a></dt>
+<dd><p>CO2 in N2 Range: 0 to 25 vol%</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InAirRange25">
+<code class="descname">Co2InAirRange25</code><em class="property"> = 3</em><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc31BinaryGas.Co2InAirRange25" title="Permalink to this definition">¶</a></dt>
+<dd><p>CO2 in air Range: 0 to 25 vol%</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.data_types.</code><code class="descname">Stc3xRelativeHumidityConditionPercent</code><span class="sig-paren">(</span><em>relative_humidity_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc3xRelativeHumidityConditionPercent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a relative humidity condition in percent.</p>
+<p>With the <a class="reference internal" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.ticks" title="sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.ticks"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ticks</span></code></a> you can access the raw data as sent to the
+device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>relative_humidity_percent</strong> (<em>float</em>) – The relative humidity in percent.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>relative_humidity_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc3xRelativeHumidityConditionPercent.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the configured condition.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.percent_rh">
+<code class="descname">percent_rh</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.percent_rh" title="Permalink to this definition">¶</a></dt>
+<dd><p>The configured condition in percent.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.ticks">
+<code class="descname">ticks</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xRelativeHumidityConditionPercent.ticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ticks (int) to pass to the device.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.data_types.</code><code class="descname">Stc3xTemperatureConditionDegC</code><span class="sig-paren">(</span><em>degree_celsius</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc3xTemperatureConditionDegC"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a temperature condition in degree celsius.</p>
+<p>With the <a class="reference internal" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.ticks" title="sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.ticks"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ticks</span></code></a> you can access the raw data as sent to the
+device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>degree_celsius</strong> (<em>float</em>) – The temperature as degree celsius</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>degree_celsius</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc3xTemperatureConditionDegC.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the configured condition.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.degrees_celsius">
+<code class="descname">degrees_celsius</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.degrees_celsius" title="Permalink to this definition">¶</a></dt>
+<dd><p>The temperature condition in °C.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.degrees_fahrenheit">
+<code class="descname">degrees_fahrenheit</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.degrees_fahrenheit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The temperature condition in °F.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.ticks">
+<code class="descname">ticks</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xTemperatureConditionDegC.ticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ticks (int) to pass to the device.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.data_types.</code><code class="descname">Stc3xReferenceConcentration</code><span class="sig-paren">(</span><em>vol_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc3xReferenceConcentration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a reference gas concentration.</p>
+<p>With the <a class="reference internal" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.ticks" title="sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.ticks"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ticks</span></code></a> you can access the raw data delivered to the
+device.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vol_percent</strong> (<em>float</em>) – The gas concentration in vol%.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>vol_percent</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/data_types.html#Stc3xReferenceConcentration.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the provided raw data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.vol_percent">
+<code class="descname">vol_percent</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.vol_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The concentration in vol%.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.ticks">
+<code class="descname">ticks</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.data_types.Stc3xReferenceConcentration.ticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ticks (int) as received from the device.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-sensirion_i2c_stc.stc3x.response_types">
+<span id="response-types"></span><h3>Response Types<a class="headerlink" href="#module-sensirion_i2c_stc.stc3x.response_types" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.response_types.</code><code class="descname">Stc3xTemperature</code><span class="sig-paren">(</span><em>ticks</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/response_types.html#Stc3xTemperature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a measurement response for the temperature.</p>
+<p>With the <a class="reference internal" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.ticks" title="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.ticks"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ticks</span></code></a> you can access the raw data as received from the
+device. For the converted values you can choose between
+<a class="reference internal" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_celsius" title="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_celsius"><code class="xref py py-attr docutils literal notranslate"><span class="pre">degrees_celsius</span></code></a> and <a class="reference internal" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_fahrenheit" title="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_fahrenheit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">degrees_fahrenheit</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ticks</strong> (<em>int</em>) – The read ticks as received from the device.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>ticks</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/response_types.html#Stc3xTemperature.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the received raw data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.ticks">
+<code class="descname">ticks</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.ticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ticks (int) as received from the device.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_celsius">
+<code class="descname">degrees_celsius</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_celsius" title="Permalink to this definition">¶</a></dt>
+<dd><p>The converted temperature in °C.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_fahrenheit">
+<code class="descname">degrees_fahrenheit</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xTemperature.degrees_fahrenheit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The converted temperature in °F.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration">
+<em class="property">class </em><code class="descclassname">sensirion_i2c_stc.stc3x.response_types.</code><code class="descname">Stc3xGasConcentration</code><span class="sig-paren">(</span><em>ticks</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/response_types.html#Stc3xGasConcentration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a measurement response for the gas concentration.</p>
+<p>With the <a class="reference internal" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.ticks" title="sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.ticks"><code class="xref py py-attr docutils literal notranslate"><span class="pre">ticks</span></code></a> you can access the raw data as received from the
+device. For the converted value the <a class="reference internal" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.vol_percent" title="sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.vol_percent"><code class="xref py py-attr docutils literal notranslate"><span class="pre">vol_percent</span></code></a> attribute is
+available.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ticks</strong> (<em>int</em>) – The read ticks as received from the device.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>ticks</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sensirion_i2c_stc/stc3x/response_types.html#Stc3xGasConcentration.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from the received raw data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.ticks">
+<code class="descname">ticks</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.ticks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ticks (int) as received from the device.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.vol_percent">
+<code class="descname">vol_percent</code><a class="headerlink" href="#sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration.vol_percent" title="Permalink to this definition">¶</a></dt>
+<dd><p>The converted concentration in vol%.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quick Start" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021 Sensirion AG, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: 0.1.0
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Tags</dt>
+            <dd><a href="api.html">0.1.0</a></dd>
+        </dl>
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="../master/api.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

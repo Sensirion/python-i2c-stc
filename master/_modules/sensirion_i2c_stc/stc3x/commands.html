@@ -1,0 +1,817 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sensirion_i2c_stc.stc3x.commands &mdash; sensirion-i2c-stc 0.1.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/banner.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> sensirion-i2c-stc
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">sensirion-i2c-stc</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>sensirion_i2c_stc.stc3x.commands</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for sensirion_i2c_stc.stc3x.commands</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># (c) Copyright 2021 Sensirion AG, Switzerland</span>
+
+<span class="c1"># flake8: noqa</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">struct</span> <span class="kn">import</span> <span class="n">pack</span><span class="p">,</span> <span class="n">unpack</span>
+
+<span class="kn">from</span> <span class="nn">sensirion_i2c_driver</span> <span class="kn">import</span> <span class="n">SensirionI2cCommand</span><span class="p">,</span> <span class="n">CrcCalculator</span>
+
+<span class="kn">from</span> <span class="nn">sensirion_i2c_stc.stc3x.data_types</span> <span class="kn">import</span> \
+    <span class="n">Stc3xRelativeHumidityConditionPercent</span><span class="p">,</span> <span class="n">Stc3xTemperatureConditionDegC</span><span class="p">,</span> \
+    <span class="n">Stc3xReferenceConcentration</span>
+<span class="kn">from</span> <span class="nn">sensirion_i2c_stc.stc3x.response_types</span> <span class="kn">import</span> <span class="n">Stc3xTemperature</span><span class="p">,</span> \
+    <span class="n">Stc3xGasConcentration</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdBase"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdBase</span><span class="p">(</span><span class="n">SensirionI2cCommand</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    STC3x I²C base command.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdBase.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdBase.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">tx_data</span><span class="p">,</span> <span class="n">rx_length</span><span class="p">,</span> <span class="n">read_delay</span><span class="p">,</span> <span class="n">timeout</span><span class="p">,</span>
+                 <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructs a new STC3x I²C command.</span>
+
+<span class="sd">        :param int/None command:</span>
+<span class="sd">            The command ID to be sent to the device. None means that no</span>
+<span class="sd">            command will be sent, i.e. only ``tx_data`` (if not None) will</span>
+<span class="sd">            be sent. No CRC is added to these bytes since the command ID</span>
+<span class="sd">            usually already contains a CRC.</span>
+<span class="sd">        :param bytes-like/list/None tx_data:</span>
+<span class="sd">            Bytes to be extended with CRCs and then sent to the I²C device.</span>
+<span class="sd">            None means that no write header will be sent at all (if ``command``</span>
+<span class="sd">            is None too). An empty list means to send the write header (even if</span>
+<span class="sd">            ``command`` is None), but without data following it.</span>
+<span class="sd">        :param int/None rx_length:</span>
+<span class="sd">            Number of bytes to be read from the I²C device, including CRC</span>
+<span class="sd">            bytes. None means that no read header is sent at all. Zero means</span>
+<span class="sd">            to send the read header, but without reading any data.</span>
+<span class="sd">        :param float read_delay:</span>
+<span class="sd">            Delay (in Seconds) to be inserted between the end of the write</span>
+<span class="sd">            operation and the beginning of the read operation. This is needed</span>
+<span class="sd">            if the device needs some time to prepare the RX data, e.g. if it</span>
+<span class="sd">            has to perform a measurement. Set to 0.0 to indicate that no delay</span>
+<span class="sd">            is needed, i.e. the device does not need any processing time.</span>
+<span class="sd">        :param float timeout:</span>
+<span class="sd">            Timeout (in Seconds) to be used in case of clock stretching. If the</span>
+<span class="sd">            device stretches the clock longer than this value, the transceive</span>
+<span class="sd">            operation will be aborted with a timeout error. Set to 0.0 to</span>
+<span class="sd">            indicate that the device will not stretch the clock for this</span>
+<span class="sd">            command.</span>
+<span class="sd">        :param float post_processing_time:</span>
+<span class="sd">            Maximum time in seconds the device needs for post processing of</span>
+<span class="sd">            this command until it is ready to receive the next command. For</span>
+<span class="sd">            example after a device reset command, the device might need some</span>
+<span class="sd">            time until it is ready again. Usually this is 0.0s, i.e. no post</span>
+<span class="sd">            processing is needed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="n">command</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="n">tx_data</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="n">rx_length</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="n">read_delay</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">crc</span><span class="o">=</span><span class="n">CrcCalculator</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mh">0x31</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">),</span>
+            <span class="n">command_bytes</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="n">post_processing_time</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetBinaryGas"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdSetBinaryGas</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set Binary Gas I²C Command</span>
+
+<span class="sd">    The STC3x measures the concentration of binary gas mixtures. It is</span>
+<span class="sd">    important to note that the STC3x is not selective for gases, and it assumes</span>
+<span class="sd">    that the binary gas is set correctly. The sensor can only give a correct</span>
+<span class="sd">    concentration value when only the gases set with this command are present.</span>
+<span class="sd">    When the system is reset, or wakes up from sleep mode, the sensor goes back</span>
+<span class="sd">    to default mode, in which no binary gas is selected. This means that the</span>
+<span class="sd">    binary gas must be reconfigured. When no binary gas is selected (default</span>
+<span class="sd">    mode) the concentration measurement will return undefined results. This</span>
+<span class="sd">    allows to detect unexpected sensor interruption (e.g. due to temporary</span>
+<span class="sd">    power loss) and consequently reset the binary gas to the appropriate</span>
+<span class="sd">    mixture.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetBinaryGas.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetBinaryGas.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">binary_gas</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+
+<span class="sd">        :param int binary_gas:</span>
+<span class="sd">            See section 3.3.2 in the corresponding datasheet for a list of</span>
+<span class="sd">            available binary gases. See :py:class:`Stc31BinaryGas`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetBinaryGas</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3615</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">binary_gas</span><span class="p">)]),</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetRelativeHumidity"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdSetRelativeHumidity</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set Relative Humidity I²C Command</span>
+
+<span class="sd">    As mentioned in section 5.1 of the datasheet, the measurement principle of</span>
+<span class="sd">    the concentration measurement is dependent on the humidity of the gas. With</span>
+<span class="sd">    the set relative humidity command, the sensor uses internal algorithms to</span>
+<span class="sd">    compensate the concentration results. When no value is written to the</span>
+<span class="sd">    sensor after a soft reset, wake-up or power-up, a relative humidity of 0%</span>
+<span class="sd">    is assumed. The value written to the sensor is used until a new value is</span>
+<span class="sd">    written to the sensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetRelativeHumidity.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetRelativeHumidity.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">relative_humidity_percent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+
+<span class="sd">        :param float relative_humidity_percent: Relative humidity conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetRelativeHumidity</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3624</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">Stc3xRelativeHumidityConditionPercent</span><span class="p">(</span>
+                <span class="n">relative_humidity_percent</span><span class="p">)</span><span class="o">.</span><span class="n">ticks</span><span class="p">)]),</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetTemperature"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdSetTemperature</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set Temperature I²C Command</span>
+
+<span class="sd">    The concentration measurement requires a compensation of temperature. Per</span>
+<span class="sd">    default, the sensor uses the internal temperature sensor to compensate the</span>
+<span class="sd">    concentration results. However, when using the SHTxx, it is recommended to</span>
+<span class="sd">    also use its temperature value, because it is more accurate. When no value</span>
+<span class="sd">    is written to the sensor after a soft reset, wake-up or power-up, the</span>
+<span class="sd">    internal temperature signal is used. The value written to the sensor is</span>
+<span class="sd">    used until a new value is written to the sensor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetTemperature.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetTemperature.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temperature_degree_celsius</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+
+<span class="sd">        :param float temperature_degree_celsius: Temperature conditions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetTemperature</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x361E</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">Stc3xTemperatureConditionDegC</span><span class="p">(</span>
+                <span class="n">temperature_degree_celsius</span><span class="p">)</span><span class="o">.</span><span class="n">ticks</span><span class="p">)]),</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetPressure"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdSetPressure</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set Pressure I²C Command</span>
+
+<span class="sd">    A pressure value can be written into the sensor, for density compensation</span>
+<span class="sd">    of the gas concentration measurement. It is recommended to set the pressure</span>
+<span class="sd">    level, if it differs significantly from 1013mbar. Pressure compensation is</span>
+<span class="sd">    valid from 600mbar to 1200mbar. When no value is written to the sensor</span>
+<span class="sd">    after a soft reset, wake-up or power-up, a pressure of 1013mbar is assumed.</span>
+<span class="sd">    The value written is used until a new value is written to the sensor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetPressure.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetPressure.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">absolue_pressure</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+
+<span class="sd">        :param int absolue_pressure:</span>
+<span class="sd">            Ambient pressure in mbar (milli-bars)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetPressure</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x362F</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">absolue_pressure</span><span class="p">))]),</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdMeasureGasConcentration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdMeasureGasConcentration</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Measure Gas Concentration I²C Command</span>
+
+<span class="sd">    The measurement of gas concentration is done in one measurement in a single</span>
+<span class="sd">    shot, and takes less than 66ms. When measurement data is available, it can</span>
+<span class="sd">    be read out by sending an I2C read header and reading out the data from the</span>
+<span class="sd">    sensor. If no measurement data is available yet, the sensor will respond</span>
+<span class="sd">    with a NACK on the I2C read header. In case the ‘Set temperature command’</span>
+<span class="sd">    has been used prior to the measurement command, the temperature value given</span>
+<span class="sd">    out by the STC3x will be that one of the ‘Set temperature command’. When</span>
+<span class="sd">    the ‘Set temperature command’ has not been used, the internal temperature</span>
+<span class="sd">    value can be read out. During product development it is recommended to</span>
+<span class="sd">    compare the internal temperature value of the STC3x and the temperature</span>
+<span class="sd">    value of the SHTxx, to check whether both sensors are properly thermally</span>
+<span class="sd">    coupled. The values must be within 0.7°C.</span>
+
+<span class="sd">    .. note:: The Gas concentration is a 16-bit unsigned integer. The</span>
+<span class="sd">              temperature and byte 7 and 8 don’t need to be read out. The read</span>
+<span class="sd">              sequence can be aborted after any byte by a NACK and a STOP</span>
+<span class="sd">              condition. The measurement command should not be triggered more</span>
+<span class="sd">              often than once a second.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdMeasureGasConcentration.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdMeasureGasConcentration</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3639</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.07</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cCmdMeasureGasConcentration.interpret_response"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdMeasureGasConcentration.interpret_response">[docs]</a>    <span class="k">def</span> <span class="nf">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates the CRCs of the received data from the device and returns</span>
+<span class="sd">        the interpreted data.</span>
+
+<span class="sd">        :param bytes data:</span>
+<span class="sd">            Received raw bytes from the read operation.</span>
+<span class="sd">        :return:</span>
+<span class="sd">            - gas_concentration (:py:class:sensirion_i2c_stc.stc3x.response_types.Stc3xGasConcentration)</span>
+<span class="sd">              Gas concentration response object</span>
+<span class="sd">            - temperature (:py:class:sensirion_i2c_stc.stc3x.reasponse_types.Stc3xTemperature)</span>
+<span class="sd">              Temperature response object.</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        :raise ~sensirion_i2c_driver.errors.I2cChecksumError:</span>
+<span class="sd">            If a received CRC was wrong.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check and remove CRCs</span>
+        <span class="n">checked_data</span> <span class="o">=</span> <span class="n">Stc3xI2cCmdBase</span><span class="o">.</span><span class="n">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># convert raw received data into proper data types</span>
+        <span class="n">gas_ticks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">checked_data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># uint16</span>
+        <span class="n">temperature_ticks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">checked_data</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># uint16</span>
+        <span class="k">return</span> <span class="n">Stc3xGasConcentration</span><span class="p">(</span><span class="n">gas_ticks</span><span class="p">),</span> <span class="n">Stc3xTemperature</span><span class="p">(</span>
+            <span class="n">temperature_ticks</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdForcedRecalibration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdForcedRecalibration</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Forced Recalibration I²C Command</span>
+
+<span class="sd">    Forced recalibration (FRC) is used to improve the sensor output with a</span>
+<span class="sd">    known reference value. See the Field Calibration Guide for more details. If</span>
+<span class="sd">    no argument is given, the sensor will assume a default value of 0 vol%.</span>
+<span class="sd">    This command will trigger a concentration measurement as described in 3.3.6</span>
+<span class="sd">    of the datasheet and therefore it will take the same measurement time.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdForcedRecalibration.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdForcedRecalibration.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reference_concentration_vol_percent</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+
+<span class="sd">        :param int reference_concentration_vol_percent: Reference concentration</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdForcedRecalibration</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3661</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">Stc3xReferenceConcentration</span><span class="p">(</span>
+                <span class="n">reference_concentration_vol_percent</span><span class="p">)</span><span class="o">.</span><span class="n">ticks</span><span class="p">)]),</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.066</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdEnableAutomaticSelfCalibration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdEnableAutomaticSelfCalibration</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enable Automatic Self Calibration I²C Command</span>
+
+<span class="sd">    Enable the automatic self-calibration (ASC). The sensor can run in</span>
+<span class="sd">    automatic self-calibration mode. This mode will enhance the accuracy for</span>
+<span class="sd">    applications where the target gas is not present for the majority of the</span>
+<span class="sd">    time. See the Field Calibration Guide for more details. This feature can be</span>
+<span class="sd">    enabled or disabled by using the commands as shown below. The automatic</span>
+<span class="sd">    self-calibration is optimized for a gas concentration measurement interval</span>
+<span class="sd">    of 1s. Substantially different measurement intervals may decrease the</span>
+<span class="sd">    self-calibration performance. The default state is disabled. Automatic</span>
+<span class="sd">    self-calibration in combination with sleep mode requires a specific</span>
+<span class="sd">    sequence of steps. See section 3.3.9 in the datasheet for more detailed</span>
+<span class="sd">    instructions</span>
+
+<span class="sd">    .. note:: The sensor will apply automatic self-calibration</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdEnableAutomaticSelfCalibration.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnableAutomaticSelfCalibration.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdEnableAutomaticSelfCalibration</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3FEF</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdDisableAutomaticSelfCalibration"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdDisableAutomaticSelfCalibration</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Disable Automatic Self Calibration I²C Command</span>
+
+<span class="sd">    Disable the automatic self-calibration (ASC). The sensor can run in</span>
+<span class="sd">    automatic self-calibration mode. This mode will enhance the accuracy for</span>
+<span class="sd">    applications where the target gas is not present for the majority of the</span>
+<span class="sd">    time. See the Field Calibration Guide for more details. This feature can be</span>
+<span class="sd">    enabled or disabled by using the commands as shown below. The default state</span>
+<span class="sd">    is disabled.</span>
+
+<span class="sd">    .. note:: The sensor will not apply automatic self-calibration. This is the</span>
+<span class="sd">              default state of the sensor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdDisableAutomaticSelfCalibration.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdDisableAutomaticSelfCalibration.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdDisableAutomaticSelfCalibration</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3F6E</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdPrepareReadState"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdPrepareReadState</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepare Read State I²C Command</span>
+
+<span class="sd">    The sensor will prepare its current state to be read out.</span>
+
+<span class="sd">    .. note:: See section 3.3.9 of the datasheet for detailed instructions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdPrepareReadState.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareReadState.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdPrepareReadState</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3752</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdGetSensorState"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdGetSensorState</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get Sensor State I²C Command</span>
+
+<span class="sd">    Read out the sensor state.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdGetSensorState.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdGetSensorState</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0xE133</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cCmdGetSensorState.interpret_response"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdGetSensorState.interpret_response">[docs]</a>    <span class="k">def</span> <span class="nf">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates the CRCs of the received data from the device and returns</span>
+<span class="sd">        the interpreted data.</span>
+
+<span class="sd">        :param bytes data:</span>
+<span class="sd">            Received raw bytes from the read operation.</span>
+<span class="sd">        :return: Current sensor state</span>
+<span class="sd">        :rtype: list(int)</span>
+<span class="sd">        :raise ~sensirion_i2c_driver.errors.I2cChecksumError:</span>
+<span class="sd">            If a received CRC was wrong.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check and remove CRCs</span>
+        <span class="n">checked_data</span> <span class="o">=</span> <span class="n">Stc3xI2cCmdBase</span><span class="o">.</span><span class="n">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># convert raw received data into proper data types</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">ii</span><span class="p">)</span> <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span>
+                 <span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;</span><span class="si">{}</span><span class="s2">B&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">checked_data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">])</span> <span class="o">//</span> <span class="mi">1</span><span class="p">),</span>
+                        <span class="n">checked_data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">])]</span>  <span class="c1"># list(uint8)</span>
+        <span class="k">return</span> <span class="n">state</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetSensorState"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdSetSensorState</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set Sensor State I²C Command</span>
+
+<span class="sd">    Write the sensor state as read out earlier.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSetSensorState.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSetSensorState.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+
+<span class="sd">        :param list(int) state: Current sensor state</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdSetSensorState</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0xE133</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">pack</span><span class="p">(</span><span class="s2">&quot;&gt;</span><span class="si">{}</span><span class="s2">B&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="p">)),</span> <span class="o">*</span><span class="n">state</span><span class="p">)]),</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdApplyState"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdApplyState</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply State I²C Command</span>
+
+<span class="sd">    The sensor will apply the written state data.</span>
+
+<span class="sd">    .. note:: See section 3.3.9 of the datasheet for detailed instructions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdApplyState.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdApplyState.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdApplyState</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3650</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdSelfTest"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdSelfTest</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Self Test I²C Command</span>
+
+<span class="sd">    The sensor will run an on-chip self-test. A successful self-test will</span>
+<span class="sd">    return zero. The 16-bit result of a sensor self-test is a combination of</span>
+<span class="sd">    possible error states, encoded as bits (starting with lsb).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSelfTest.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdSelfTest</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x365B</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.022</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cCmdSelfTest.interpret_response"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdSelfTest.interpret_response">[docs]</a>    <span class="k">def</span> <span class="nf">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates the CRCs of the received data from the device and returns</span>
+<span class="sd">        the interpreted data.</span>
+
+<span class="sd">        :param bytes data:</span>
+<span class="sd">            Received raw bytes from the read operation.</span>
+<span class="sd">        :return: Self test result. Error code or 0x0000 on success.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :raise ~sensirion_i2c_driver.errors.I2cChecksumError:</span>
+<span class="sd">            If a received CRC was wrong.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check and remove CRCs</span>
+        <span class="n">checked_data</span> <span class="o">=</span> <span class="n">Stc3xI2cCmdBase</span><span class="o">.</span><span class="n">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># convert raw received data into proper data types</span>
+        <span class="n">self_test_output</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;H&quot;</span><span class="p">,</span> <span class="n">checked_data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># uint16</span>
+        <span class="k">return</span> <span class="n">self_test_output</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdEnterSleepMode"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdEnterSleepMode</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enter Sleep Mode I²C Command</span>
+
+<span class="sd">    Put sensor into sleep mode. In sleep mode the sensor uses the minimum</span>
+<span class="sd">    amount of current. The mode can only be entered from idle mode, i.e. when</span>
+<span class="sd">    the sensor is not measuring. This mode is particularly useful for battery</span>
+<span class="sd">    operated devices. To minimize the current in this mode, the complexity of</span>
+<span class="sd">    the sleep mode circuit has been reduced as much as possible, which is</span>
+<span class="sd">    mainly reflected by the way the sensor exits the sleep mode. The sleep</span>
+<span class="sd">    command can be sent after the result have been read out and the sensor is</span>
+<span class="sd">    in idle mode. The sensor exits the sleep mode and enters the idle mode when</span>
+<span class="sd">    it receives the valid I2C address and a write bit (‘0’). Note that the I2C</span>
+<span class="sd">    address is not acknowledged. It is possible to poll the sensor to see</span>
+<span class="sd">    whether the sensor has received the address and has woken up. This takes</span>
+<span class="sd">    maximum 12ms.</span>
+
+<span class="sd">    .. note:: Only available in idle mode</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdEnterSleepMode.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdEnterSleepMode.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdEnterSleepMode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x3677</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdPrepareProductIdentifier"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdPrepareProductIdentifier</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepare Product Identifier I²C Command</span>
+
+<span class="sd">    Prepare for reading the product identifier and sensor serial number.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdPrepareProductIdentifier.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdPrepareProductIdentifier.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdPrepareProductIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0x367C</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Stc3xI2cCmdReadProductIdentifier"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier">[docs]</a><span class="k">class</span> <span class="nc">Stc3xI2cCmdReadProductIdentifier</span><span class="p">(</span><span class="n">Stc3xI2cCmdBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read Product Identifier I²C Command</span>
+
+<span class="sd">    Read the product identifier and sensor serial number.</span>
+
+<span class="sd">    .. note:: Make sure to call &#39;prepare product identifier&#39; immediately</span>
+<span class="sd">              before.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Stc3xI2cCmdReadProductIdentifier.__init__"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Stc3xI2cCmdReadProductIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">command</span><span class="o">=</span><span class="mh">0xE102</span><span class="p">,</span>
+            <span class="n">tx_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">rx_length</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span>
+            <span class="n">read_delay</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">post_processing_time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Stc3xI2cCmdReadProductIdentifier.interpret_response"><a class="viewcode-back" href="../../../api.html#sensirion_i2c_stc.stc3x.commands.Stc3xI2cCmdReadProductIdentifier.interpret_response">[docs]</a>    <span class="k">def</span> <span class="nf">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Validates the CRCs of the received data from the device and returns</span>
+<span class="sd">        the interpreted data.</span>
+
+<span class="sd">        :param bytes data:</span>
+<span class="sd">            Received raw bytes from the read operation.</span>
+<span class="sd">        :return:</span>
+<span class="sd">            - product_number (int) -</span>
+<span class="sd">              32-bit unique product and revision number. The number is listed</span>
+<span class="sd">              below: STC31: 0x08010301</span>
+<span class="sd">            - serial_number (unsigned long long) 64-bit unique serial number</span>
+<span class="sd">        :rtype: tuple</span>
+<span class="sd">        :raise ~sensirion_i2c_driver.errors.I2cChecksumError:</span>
+<span class="sd">            If a received CRC was wrong.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># check and remove CRCs</span>
+        <span class="n">checked_data</span> <span class="o">=</span> <span class="n">Stc3xI2cCmdBase</span><span class="o">.</span><span class="n">interpret_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+
+        <span class="c1"># convert raw received data into proper data types</span>
+        <span class="n">product_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;I&quot;</span><span class="p">,</span> <span class="n">checked_data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># uint32</span>
+        <span class="n">serial_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&gt;Q&quot;</span><span class="p">,</span> <span class="n">checked_data</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">12</span><span class="p">])[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># uint64</span>
+        <span class="k">return</span> <span class="n">product_number</span><span class="p">,</span> <span class="n">serial_number</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021 Sensirion AG, Switzerland
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        <span class="fa fa-book"> Other Versions</span>
+        v: master
+        <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+        <dl>
+            <dt>Branches</dt>
+            <dd><a href="commands.html">master</a></dd>
+        </dl>
+    </div>
+</div>
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -29,11 +29,6 @@ extras_require = {
     ]
 }
 
-# Packages only required to run this setup file.
-setup_requires = [
-    'pytest-runner~=4.2',
-]
-
 # Read version number from version.py
 version_line = open("sensirion_i2c_stc/version.py", "rt").read()
 result = re.search(r"^version = ['\"]([^'\"]*)['\"]", version_line, re.M)
@@ -60,7 +55,6 @@ setup(
     packages=find_packages(exclude=['tests', 'tests.*']),
     long_description=long_description,
     python_requires=python_requires,
-    setup_requires=setup_requires,
     install_requires=install_requires,
     extras_require=extras_require,
     classifiers=[

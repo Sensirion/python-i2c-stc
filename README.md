@@ -1,3 +1,7 @@
+# Deprecated
+This driver repository is deprecated. Please use the new driver available
+here: https://github.com/Sensirion/python-i2c-stc3x
+
 # Python Driver for Sensirion I²C STC3x Sensors
 
 This repository contains the Python driver to communicate with Sensirion
